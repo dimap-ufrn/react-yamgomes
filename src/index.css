@@ -9,3 +9,17 @@
   align-items: center;
   overflow-x: hidden;
 }
+
+hr{
+  margin: 10px 0;
+  border: 1px solid #aaa
+}
+
+body{
+  display:flex;
+  margin: 0;
+}
+
+h3{
+  margin: 0.5em 0em;
+}

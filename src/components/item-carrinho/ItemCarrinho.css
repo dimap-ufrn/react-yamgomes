@@ -1,52 +1,80 @@
-.item-carrinho{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.item-carrinho {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position:relative;
 }
 
-.info-item-carrinho,
-.botoes-item-carrinho{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    margin-right: 10px;
+.info-item-carrinho {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 45%;
+}
+.botoes-item-carrinho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .nome-item-carrinho,
-.preco-item-carrinho{
-    font-size: 1.2rem;
-    font-weight: bold;
+.preco-item-carrinho {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
-.descricao-item-carrinho{
-    font-size: 1rem;
-    font-weight: normal;
+.descricao-item-carrinho {
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: #666;
 }
 
-.quantidade-item-carrinho{
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin:10px;
+.quantidade-item-carrinho {
+  font-weight: bold;
+  margin: 10px;
 }
 
-.contador-item-carrinho{
+.contador-item-carrinho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botao-item-carrinho {
+  width: 2em;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.preco-final-item-carrinho {
+  margin: 0.5em;
+}
+
+.resto-carrinho {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 20%;
+    flex-direction: column;
+    position:absolute;
+    right:0;
+    padding: 10px;
 }
 
-.botao-item-carrinho{
-    width: 2em;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    cursor: pointer;
+.botao-remover-item-carrinho{
+    margin:10px
+}
+
+.imagem-carrinho{
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 25px;
+    margin: 20px;
+    border: 2px ridge #666;
 }

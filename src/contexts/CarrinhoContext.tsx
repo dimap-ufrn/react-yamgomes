@@ -16,6 +16,8 @@ type CarrinhoContext = {
   deleteItem: (id: string) => void;
   fillCarrinho: () => void;
   quantidadeItens: number;
+  getFrete: () => number;
+  setFrete: (frete: number) => void;
 };
 
 export function useCarrinho() {
@@ -34,7 +36,7 @@ export function CarrinhoProvider({ children }: CarrinhoProviderProps) {
   const addItem = (produto: ProdutoCarrinho) => {
     const index = carrinhoItens.findIndex((item) => item.id === produto.id);
     if (index > -1) {
-      const novoCarrinho = [...carrinhoItens]
+      const novoCarrinho = [...carrinhoItens];
       novoCarrinho[index].quantidade++;
       setCarrinhoItems(novoCarrinho);
     }
@@ -44,7 +46,7 @@ export function CarrinhoProvider({ children }: CarrinhoProviderProps) {
     const index = carrinhoItens.findIndex((item) => item.id === id);
     if (index > -1) {
       if (carrinhoItens[index].quantidade > 1) {
-        const novoCarrinho = [...carrinhoItens]
+        const novoCarrinho = [...carrinhoItens];
         novoCarrinho[index].quantidade--;
         setCarrinhoItems(novoCarrinho);
       } else {
@@ -76,48 +78,40 @@ export function CarrinhoProvider({ children }: CarrinhoProviderProps) {
     const produtos = [
       new ProdutoCarrinho(
         "1",
-        "Produto 1",
-        "Descrição do produto 1",
-        10,
-        "https://picsum.photos/200/300"
+        "Sabonete Royal Jelly",
+        "Kit de cinco sabonetes Royal Jelly para uma pele mais macia e bem nutrida.",
+        29.99,
+        "https://www.jafra.com.br/wp-content/uploads/2019/04/16088_Royal-Jelly-Sabonetes.jpg"
       ),
       new ProdutoCarrinho(
         "2",
-        "Produto 2",
-        "Descrição do produto 2",
-        20,
-        "https://picsum.photos/200/300"
+        "S.O.S. Cachos Salon Line",
+        "Conjunto S.O.S. Cachos + Poderosos da Salon Line Para você ondulada, cacheada e crespa manter o cabelo bonito e saudável na correria do dia a dia.",
+        93.9,
+        "https://www.salonline.com.br/ccstore/v1/images/?source=/file/v6258473197814921107/products/43169_at.jpg"
       ),
       new ProdutoCarrinho(
         "3",
-        "Produto 3",
-        "Descrição do produto 3",
-        30,
-        "https://picsum.photos/200/300"
+        "Skala Camomila Hidratante Corporal",
+        "Esse creminho maravilhoso faz com que sua pele fique bem macia, hidratada, sedosa, envolvente e perfumada.",
+        10.9,
+        "https://www.perfumariasumire.com.br/media/catalog/product/cache/baa3aaf16c708939a78d2263dd7e0e67/l/o/lo_o-hidratante-corporal-skala-camomila-400ml_.jpg"
       ),
       new ProdutoCarrinho(
         "4",
-        "Produto 4",
-        "Descrição do produto 4",
-        40,
-        "https://picsum.photos/200/300"
-      ),
-      new ProdutoCarrinho(
-        "5",
-        "Produto 5",
-        "Descrição do produto 5",
-        50,
-        "https://picsum.photos/200/300"
-      ),
-      new ProdutoCarrinho(
-        "6",
-        "Produto 6",
-        "Descrição do produto 6",
-        60,
-        "https://picsum.photos/200/300"
+        "Depil Bella Cera Depilatória",
+        "A linha profissional de ceras quente alto rendimento depil bella possui composição com ativos especiais, em uma formulação diferenciada. Com rápida secagem, elasticidade superior e aderência perfeita, remove os pelos com menos aplicações, resultando numa depilação eficaz e com maior rendimento.",
+        20,
+        "https://www.perfumariasumire.com.br/media/catalog/product/cache/baa3aaf16c708939a78d2263dd7e0e67/c/e/cera_quente_depilatoria_depil_bella_propolis_400g.jpg"
       ),
     ];
     setCarrinhoItems(produtos);
+  };
+
+  const [frete, setFrete] = useState(0);
+
+  const getFrete = () => {
+    return frete;
   };
 
   return (
@@ -131,6 +125,8 @@ export function CarrinhoProvider({ children }: CarrinhoProviderProps) {
         deleteItem,
         fillCarrinho,
         quantidadeItens,
+        getFrete,
+        setFrete,
       }}
     >
       {children}
