@@ -17,20 +17,25 @@ export type Endereço = {
 };
 
 export default function Frete() {
-  const { getFrete, setFrete} = useCarrinho();
+  const { getFrete, setFrete } = useCarrinho();
 
   const cepRef = useRef<HTMLInputElement>(null);
   const [conteudoEndereco, setConteudoEndereco] = useState("");
+  const [hasCep, setHasCep] = useState<boolean>(false);
 
   async function buscaCep() {
-    if (!cepRef.current) return;
-    const cep = cepRef.current.value;
-    if (cep.length !== 8) {
-      setConteudoEndereco("CEP inválido");
+    if (!cepRef.current) {
+      setHasCep(false);
+      return;
     }
-    const cepInfo = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(
-      (res) => res.json()
-    );
+    const cep = cepRef.current.value;
+    if (cep.length !== 9) {
+      setConteudoEndereco("CEP inválido");
+      return;
+    }
+    const cepInfo = await fetch(
+      `https://viacep.com.br/ws/${cep.replace("-", "")}/json/`
+    ).then((res) => res.json());
     if (cepInfo.erro) {
       setConteudoEndereco("CEP não encontrado");
       return;
@@ -52,10 +57,26 @@ export default function Frete() {
           type="text"
           name="cep"
           style={{ maxWidth: "10em", marginRight: "10px" }}
-          maxLength={8}
-          placeholder="Seu CEP"
+          maxLength={9}
+          placeholder="00000-000"
+          onChange={(e) => {
+            e.target.value = e.target.value
+              .replace(/\D/g, "")
+              .replace(/(\d{5})(\d)/, "$1-$2");
+            if (e.target.value.length === 9) {
+              setHasCep(true);
+            } else {
+              setHasCep(false);
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              buscaCep();
+            }
+          }}
         />
         <button
+          disabled={!hasCep}
           onClick={() => {
             buscaCep();
           }}
@@ -74,7 +95,12 @@ export default function Frete() {
         <span>{conteudoEndereco}</span>
       </div>
       <div>
-        <span>{getFrete().toLocaleString("pt-BR", {style: 'currency', currency:"BRL"})}</span>
+        <span>
+          {getFrete().toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </span>
       </div>
     </div>
   );
