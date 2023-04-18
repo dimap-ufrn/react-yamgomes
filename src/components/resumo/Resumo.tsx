@@ -7,6 +7,10 @@ export default function Resumo() {
   const { getCarrinhoTotal, getCarrinhoItems, getFrete } = useCarrinho();
 
   const submit = () => {
+    if (getCarrinhoItems().length === 0) {
+      alert("Seu carrinho está vazio!");
+      return;
+    }
     const f = getFrete();
     if (f > 0) {
       alert(
