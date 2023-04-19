@@ -58,7 +58,7 @@ export default function Frete() {
           name="cep"
           style={{ maxWidth: "10em", marginRight: "10px" }}
           maxLength={9}
-          placeholder="00000-000"
+          placeholder="CEP Ex.: 00000-000"
           onChange={(e) => {
             e.target.value = e.target.value
               .replace(/\D/g, "")
